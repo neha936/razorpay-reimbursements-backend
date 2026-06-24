@@ -1,0 +1,26 @@
+{
+  "name": "reimbursements-management-tool",
+  "version": "1.0.0",
+  "description": "Backend REST API for Reimbursements Management",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "db:migrate": "node src/db/migrate.js",
+    "db:seed-data": "node src/db/seed.js"
+  },
+  "keywords": ["reimbursements", "expressjs", "postgresql"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}

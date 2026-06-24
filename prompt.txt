@@ -1,0 +1,191 @@
+Build a complete backend-only application in JavaScript using Node.js, Express.js, PostgreSQL, JWT authentication, cookie-based auth, bcrypt password hashing, and a clean layered architecture.
+
+Project Name: Reimbursements Management Tool
+
+Requirements:
+
+1. Use Express.js (JavaScript only, no TypeScript).
+2. Use PostgreSQL as database.
+3. Backend must run on port 7002.
+4. Create clean folder structure:
+
+src/
+config/
+controllers/
+routes/
+middlewares/
+services/
+utils/
+db/
+app.js
+server.js
+
+5. Follow layered architecture:
+   Route → Middleware → Controller → Service → Database
+
+6. Create database schema:
+
+Table: users
+
+* id
+* name
+* email
+* password
+* role (EMP, RM, APE, CFO)
+
+Table: employee_managers
+
+* id
+* employee_id
+* manager_id
+
+Table: reimbursements
+
+* id
+* employee_id
+* title
+* description
+* amount
+* rm_status
+* ape_status
+* cfo_status
+* final_status
+
+7. Implement migration scripts:
+   npm run db:migrate
+
+8. Implement seed script:
+   npm run db:seed-data
+
+Seed only one CFO account:
+
+email: [cfo@org.com](mailto:cfo@org.com)
+password: CFO#ORG@April2026
+role: CFO
+
+9. Authentication:
+
+POST /rest/onboardings/register
+
+* name
+* email
+* password
+* only org.com emails allowed
+* default role = EMP
+
+POST /rest/onboardings/login
+
+* email
+* password
+* generate JWT
+* store JWT in httpOnly cookie
+
+POST /rest/onboardings/logout
+
+* clear auth cookie
+
+10. Authorization:
+
+Roles:
+EMP
+RM
+APE
+CFO
+
+Create:
+authenticate middleware
+authorize middleware
+
+11. Role APIs:
+
+POST /rest/roles/assign
+
+Only CFO can assign roles.
+
+12. Employee Assignment APIs:
+
+POST /rest/employees/assign
+
+Assign EMP to RM.
+
+DELETE /rest/employees/assign
+
+Remove EMP from RM.
+
+13. Employees Listing API:
+
+GET /rest/employees
+
+EMP → forbidden
+
+RM → only subordinate employees
+
+APE → all EMPs and RMs
+
+CFO → all users
+
+14. Reimbursement APIs:
+
+POST /rest/reimbursements
+
+Only EMP can create reimbursement.
+
+Fields:
+title
+description
+amount
+
+Default status:
+PENDING
+
+15. Approval Flow:
+
+PATCH /rest/reimbursements
+
+RM can approve/reject
+APE can approve/reject
+CFO can approve/reject
+
+Final reimbursement status becomes APPROVED only when:
+RM approved AND APE approved
+
+Any rejection should make final_status = REJECTED.
+
+16. Reimbursement Listing:
+
+GET /rest/reimbursements
+
+EMP → own reimbursements
+
+RM → pending reimbursements of subordinates
+
+APE → reimbursements approved by RM but pending at APE level
+
+CFO → reimbursements approved by APE
+
+17. Subordinate Reimbursement API:
+
+GET /rest/reimbursements/:userId
+
+Only if requested user is subordinate employee of requesting RM.
+
+18. Add:
+
+* proper validation
+* proper error handling
+* status codes
+* SOLID principles
+* reusable services
+* environment variables
+* README
+* API documentation
+
+First generate:
+
+1. Complete folder structure
+2. Database ER diagram
+3. Database schema
+4. API flow diagram
+
+Do NOT generate code yet.
+Wait for confirmation before implementation.
