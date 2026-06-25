@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 const { Pool } = require('pg');
@@ -11,18 +9,11 @@ const pool = new Pool({
   database: env.DB_NAME,
   user: env.DB_USER,
   password: env.DB_PASSWORD,
+  ssl:
+    env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
 });
-
-
-
-console.log("DB_HOST =", env.DB_HOST);
-console.log("DB_USER =", env.DB_USER);
-console.log("DB_PASSWORD =", env.DB_PASSWORD);
-console.log("DB_NAME =", env.DB_NAME);
-
-
-
-
 
 
 pool.on('error', (err) => {
