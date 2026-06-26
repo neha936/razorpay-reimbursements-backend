@@ -13,4 +13,6 @@ module.exports = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
   COOKIE_MAX_AGE: parseInt(process.env.COOKIE_MAX_AGE, 10) || 604800000,
   NODE_ENV: process.env.NODE_ENV || 'development',
+
+  CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
 };
