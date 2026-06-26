@@ -1,0 +1,61 @@
+Build a complete React frontend for my Reimbursements Management Tool.
+
+Use Vite + React + JavaScript only.
+
+Project folder: frontend
+
+Backend API Base URL:
+https://razorpay-reimbursements-backend.onrender.com
+
+Requirements:
+
+1. Create clean folder structure:
+src/
+  api/
+  components/
+  pages/
+  routes/
+  context/
+  utils/
+  App.jsx
+  main.jsx
+
+2. Use cookie-based authentication.
+All API calls must use:
+credentials: "include"
+
+3. Pages:
+- Login page
+- Register page
+- Dashboard page
+- Employees page
+- Role Assignment page
+- Employee Assignment page
+- Reimbursements page
+- Create Reimbursement page
+- Approval page
+
+4. Roles:
+EMP, RM, APE, CFO
+
+5. Flow:
+- Register creates EMP only
+- Login stores logged-in user in AuthContext
+- EMP can create reimbursement and see own reimbursements
+- RM can see subordinate reimbursements and approve/reject
+- APE can see RM-approved reimbursements and approve/reject
+- CFO can see APE-approved reimbursements and approve/reject
+- CFO can assign roles
+- CFO/APE can assign employees to managers
+
+6. Use React Router.
+7. Use simple CSS, responsive UI, clean dashboard cards.
+8. Show loading states, error messages, success messages.
+9. Do not generate backend code.
+10. Do not change backend APIs.
+11. Use fetch or axios consistently.
+12. Create .env.example with:
+VITE_API_BASE_URL=https://razorpay-reimbursements-backend.onrender.com
+
+Before coding, first generate frontend folder structure and API mapping.
+Then wait for confirmation.
