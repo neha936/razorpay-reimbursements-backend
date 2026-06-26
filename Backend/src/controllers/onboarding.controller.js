@@ -4,6 +4,13 @@ const onboardingService = require('../services/onboarding.service');
 const { sendSuccess } = require('../utils/apiResponse');
 const env = require('../config/env');
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: env.NODE_ENV === 'production',
+  sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: env.COOKIE_MAX_AGE,
+};
+
 /**
  * POST /rest/onboardings/register
  */
@@ -25,12 +32,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const { token, user } = await onboardingService.login({ email, password });
 
-    res.cookie('auth_token', token, {
-      httpOnly: true,
-      secure: env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: env.COOKIE_MAX_AGE,
-    });
+    res.cookie('auth_token', token, cookieOptions);
 
     sendSuccess(res, 200, 'Login successful.', user);
   } catch (err) {
@@ -46,8 +48,9 @@ const logout = (req, res, next) => {
     res.clearCookie('auth_token', {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
     });
+
     sendSuccess(res, 200, 'Logged out successfully.');
   } catch (err) {
     next(err);
